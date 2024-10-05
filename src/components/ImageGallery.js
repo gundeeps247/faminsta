@@ -1,8 +1,8 @@
-// src/components/ImageGallery.js
 import React, { useEffect, useState } from 'react';
 import { storage } from '../firebaseConfig';
 import { ref, listAll, getDownloadURL } from 'firebase/storage';
 import MediaModal from './MediaModal';
+import './ImageGallery.css'; // Add new CSS for the three dots menu
 
 const ImageGallery = () => {
   const [mediaFiles, setMediaFiles] = useState([]);
@@ -48,22 +48,33 @@ const ImageGallery = () => {
     if (selectedIndex < mediaFiles.length - 1) setSelectedIndex(selectedIndex + 1);
   };
 
+  const handleDownload = (url) => {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'image.jpg'; // Default file name, you can customize this
+    a.click();
+  };
+
   return (
     <div>
       <h2>Gallery</h2>
       <div className="gallery-grid">
         {mediaFiles.map((media, index) => (
-          <div
-            className="gallery-item"
-            key={index}
-            onClick={() => openMediaModal(index)}
-          >
+          <div className="gallery-item" key={index}>
             {media.name.endsWith('.mp4') || media.name.endsWith('.mov') ? (
               <video src={media.url} controls width="100%" height="100%">
                 Your browser does not support the video tag.
               </video>
             ) : (
-              <img src={media.url} alt={`Uploaded ${index}`} />
+              <>
+                <img src={media.url} alt={`Uploaded ${index}`} onClick={() => openMediaModal(index)} />
+                <div className="dots-menu">
+                  <span className="dots-icon">&#8942;</span>
+                  <div className="dots-dropdown">
+                    <button onClick={() => handleDownload(media.url)}>Download</button>
+                  </div>
+                </div>
+              </>
             )}
           </div>
         ))}
