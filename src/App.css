@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-color: #ffe4e1; /* Light pink background */
+  background-color: #d9d8d8; /* Light pink background */
   min-height: 100vh; /* Ensure full height */
 }
 
@@ -14,7 +14,7 @@
   align-items: center; /* Center items vertically */
   width: 100%;
   padding: 10px 20px;
-  background-color: #ffb6c1; /* Light pink for navbar */
+  background-color: #b2afb2; /* Light pink for navbar */
   font-family: 'Arial', sans-serif; /* Stylish font */
   font-size: 24px; /* Increase font size */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -32,7 +32,7 @@
 .welcome-text {
   font-size: 28px;
   margin: 20px 0;
-  color: #c71585; /* Darker pink for text */
+  color: #4f4d4f; /* Darker pink for text */
   text-align: center;
 }
 
@@ -81,7 +81,7 @@ button {
   display: block;
   margin: 10px auto;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #4d637b;
   color: white;
   border: none;
   border-radius: 5px;
@@ -89,7 +89,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #6d9cce;
 }
 
 progress {
@@ -128,7 +128,7 @@ progress {
   right: 20px;
   font-size: 30px;
   font-weight: bold;
-  color: rgb(250, 0, 0);
+  color: rgb(150, 25, 25);
   cursor: pointer;
 }
 
@@ -144,7 +144,7 @@ progress {
   justify-content: center;
   margin-top: 40px;
   padding: 20px;
-  background-color: #ffb6c1; /* Same color as navbar */
+  background-color: #debdc2; /* Same color as navbar */
   font-family: 'Arial', sans-serif;
   font-size: 18px;
 }
