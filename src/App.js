@@ -45,7 +45,7 @@ function App() {
           <span role="img" aria-label="heart">🤍</span>
         </p>
         <div className="circle" onClick={() => handleImageClick('/Users/harkiratkaurgill/faminsta/src/images/myImage.png')}>
-  <img src="/images/myImage.jpg" alt="Profile of Tashneet" />
+  <img src="/images/myImage.png" alt="Profile of Tashneet" />
 </div>
 
       </footer>
