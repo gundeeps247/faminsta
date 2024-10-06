@@ -48,7 +48,7 @@ const UploadImage = () => {
 
   return (
     <div className="upload-container">
-      <h2 className="upload-title">You Can Upload Multiple Files (Images and Videos)</h2>
+      <h2 className="upload-title">Share your MEMORIES here</h2>
       <input type="file" multiple onChange={handleChange} className="file-input" />
       <button onClick={handleUpload} className="upload-button">Upload All</button>
       <br />

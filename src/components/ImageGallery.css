@@ -19,6 +19,29 @@
   height: 100%;
 }
 
+/* Video container to handle click overlay */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+}
+
+/* Transparent overlay to capture click for video */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background: transparent;
+}
+
 /* Download button */
 .download-button {
   position: absolute;
@@ -31,68 +54,6 @@
   cursor: pointer;
 }
 
-/* Three-dot menu */
-.three-dot-menu {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
-  padding: 5px;
-  cursor: pointer;
-}
-
-.three-dot-menu:hover .menu-options {
-  display: block;
-}
-
-/* Dropdown menu for options */
-.menu-options {
-  display: none;
-  position: absolute;
-  right: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  z-index: 100;
-}
-
-.menu-options button {
-  background: none;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  cursor: pointer;
-}
-
-.menu-options button:hover {
-  background-color: #f0f0f0;
-}
-
-/* Gallery grid responsive layout */
-@media (max-width: 1024px) {
-  /* Adjust grid and item size for tablets */
-  .gallery-item {
-      width: 180px;
-      height: 180px;
-  }
-}
-
-@media (max-width: 768px) {
-  /* For smaller tablets and phones */
-  .gallery-item {
-      width: 150px;
-      height: 150px;
-  }
-}
-
-@media (max-width: 480px) {
-  /* For mobile phones */
-  .gallery-item {
-      width: 100%;
-      height: auto;
-  }
-}
-
 /* Dots menu positioning */
 .dots-menu {
   position: absolute;
@@ -100,7 +61,6 @@
   right: 10px;
 }
 
-/* Dots icon styling */
 .dots-icon {
   font-size: 24px;
   cursor: pointer;
@@ -127,7 +87,7 @@
   display: block;
 }
 
-/* Button styles in dropdown */
+/* Dropdown button styles */
 .dots-dropdown button {
   background: none;
   border: none;
@@ -138,4 +98,19 @@
 
 .dots-dropdown button:hover {
   color: #007bff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gallery-item {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-item {
+    width: 100%;
+    height: auto;
+  }
 }

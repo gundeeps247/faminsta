@@ -1,5 +1,5 @@
-/* Fullscreen modal backdrop */
-.modal-backdrop {
+/* Modal background */
+.modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -7,106 +7,94 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-/* Modal content container */
+/* Modal content */
 .modal-content {
   position: relative;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 80%;
+  width: 90%;
+  max-width: 800px;
   max-height: 80%;
-  overflow: auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Video container for larger screens (laptops, iPads) */
-.video-container {
-  width: 500px;
-  height: 700px;
-  background-color: black;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-/* Video styles */
-.modal-video {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain; /* Maintain aspect ratio */
-}
-
-/* Responsive layout for smaller screens */
-@media (max-width: 1024px) {
-  /* For tablets or smaller screens like iPads */
-  .video-container {
-      width: 400px;
-      height: 600px;
-  }
-}
-
-@media (max-width: 768px) {
-  /* For smaller tablets and phones */
-  .video-container {
-      width: 300px;
-      height: 500px;
-  }
-}
-
-@media (max-width: 480px) {
-  /* For mobile phones */
-  .video-container {
-      width: 100%;
-      height: auto;
-      padding: 10px;
-  }
-}
-
-/* Image styles */
-.modal-image {
-  max-width: 100%;
-  max-height: 80vh; /* Limit height for images */
-}
-
-/* Close button */
+/* Red colored close button */
 .close {
   position: absolute;
   top: 10px;
   right: 20px;
-  color: rgb(241, 241, 241);
-  font-size: 24px;
+  font-size: 30px;
   cursor: pointer;
+  color: #f44336; /* Red color */
+  font-weight: bold;
+  transition: transform 0.2s ease;
 }
 
-/* Navigation buttons */
-.nav-button {
-  background-color: transparent;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #007bff;
+.close:hover {
+  transform: scale(1.2); /* Scale effect on hover */
 }
 
-.prev-button {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.next-button {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.modal-controls {
-  margin-top: 10px;
+/* Media container */
+.media-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-image,
+.modal-video {
+  max-width: 100%;
+  max-height: 100%;
+  transform-origin: center;
+}
+
+/* Navigation buttons for next/previous media */
+.nav-button {
+  position: absolute;
+  top: 50%;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.nav-button:hover {
+  opacity: 1;
+}
+
+.left {
+  left: 10px;
+}
+
+.right {
+  right: 10px;
+}
+
+/* Responsive modal content */
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 95%;
+    max-height: 85%;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-button {
+    font-size: 18px;
+  }
 }

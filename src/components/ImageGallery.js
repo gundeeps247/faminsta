@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { storage } from '../firebaseConfig';
 import { ref, listAll, getDownloadURL } from 'firebase/storage';
 import MediaModal from './MediaModal';
-import './ImageGallery.css'; // Add new CSS for the three dots menu
+import './ImageGallery.css';
 
 const ImageGallery = () => {
   const [mediaFiles, setMediaFiles] = useState([]);
@@ -12,7 +12,7 @@ const ImageGallery = () => {
     const fetchMediaFiles = async () => {
       const storageRef = ref(storage, 'images/');
       const res = await listAll(storageRef);
-      
+
       const mediaUrls = await Promise.all(
         res.items.map(async (itemRef) => {
           const url = await getDownloadURL(itemRef);
@@ -51,7 +51,7 @@ const ImageGallery = () => {
   const handleDownload = (url) => {
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'image.jpg'; // Default file name, you can customize this
+    a.download = 'media'; 
     a.click();
   };
 
@@ -62,9 +62,10 @@ const ImageGallery = () => {
         {mediaFiles.map((media, index) => (
           <div className="gallery-item" key={index}>
             {media.name.endsWith('.mp4') || media.name.endsWith('.mov') ? (
-              <video src={media.url} controls width="100%" height="100%">
-                Your browser does not support the video tag.
-              </video>
+              <div className="video-container" onClick={() => openMediaModal(index)}>
+                <video src={media.url} controls width="100%" height="100%" />
+                <div className="video-overlay" />
+              </div>
             ) : (
               <>
                 <img src={media.url} alt={`Uploaded ${index}`} onClick={() => openMediaModal(index)} />
@@ -82,7 +83,7 @@ const ImageGallery = () => {
 
       {selectedIndex !== null && (
         <MediaModal
-          url={mediaFiles[selectedIndex].url}
+          media={mediaFiles[selectedIndex]}
           isVideo={mediaFiles[selectedIndex].name.endsWith('.mp4') || mediaFiles[selectedIndex].name.endsWith('.mov')}
           onClose={closeModal}
           onPrevious={showPrevious}

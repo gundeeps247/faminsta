@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UploadImage from "./components/UploadImage";
 import ImageGallery from "./components/ImageGallery";
 import "./App.css";
+import myImage from './images/myImage.png'; // Importing the image from src/images folder
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -44,10 +45,9 @@ function App() {
           MADE WITH LOVE FOR MY SISTER BY TASHNEET &nbsp; 
           <span role="img" aria-label="heart">🤍</span>
         </p>
-        <div className="circle" onClick={() => handleImageClick('/Users/harkiratkaurgill/faminsta/src/images/myImage.png')}>
-  <img src="/images/myImage.png" alt="Profile of Tashneet" />
-</div>
-
+        <div className="circle" onClick={() => handleImageClick(myImage)}>
+          <img src={myImage} alt="Profile of Tashneet" />
+        </div>
       </footer>
     </div>
   );
