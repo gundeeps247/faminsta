@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { storage } from '../firebaseConfig';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import './UploadImage.css'; // Import the CSS file
 
 const UploadImage = () => {
   const [files, setFiles] = useState([]);
@@ -46,15 +47,15 @@ const UploadImage = () => {
   };
 
   return (
-    <div>
-      <h2>Upload Multiple Files (Images and Videos)</h2>
-      <input type="file" multiple onChange={handleChange} />
-      <button onClick={handleUpload}>Upload All</button>
+    <div className="upload-container">
+      <h2 className="upload-title">You Can Upload Multiple Files (Images and Videos)</h2>
+      <input type="file" multiple onChange={handleChange} className="file-input" />
+      <button onClick={handleUpload} className="upload-button">Upload All</button>
       <br />
       {progress.map((prog, index) => (
-        <div key={index}>
+        <div key={index} className="progress-container">
           <p>{`File ${index + 1} progress: ${prog}%`}</p>
-          <progress value={prog} max="100" />
+          <progress value={prog} max="100" className="progress-bar" />
         </div>
       ))}
     </div>
