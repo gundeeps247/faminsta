@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { storage } from '../firebaseConfig';
 import { ref, listAll, getDownloadURL } from 'firebase/storage';
 import MediaModal from './MediaModal';
-import './ImageGallery.css';
+import './ImageGallery.css'; // Add new CSS for the three dots menu
 
 const ImageGallery = () => {
   const [mediaFiles, setMediaFiles] = useState([]);
@@ -48,15 +48,10 @@ const ImageGallery = () => {
     if (selectedIndex < mediaFiles.length - 1) setSelectedIndex(selectedIndex + 1);
   };
 
-  const handleDownload = (url, fileName) => {
+  const handleDownload = (url) => {
     const a = document.createElement('a');
     a.href = url;
-
-    // Automatically determine the file extension based on the media type
-    const fileExtension = url.split('.').pop();
-    const name = fileName ? fileName : `download.${fileExtension}`; // Use the file name or set a default
-
-    a.download = name; // Set the file name for the download
+    a.download = 'image.jpg'; // Default file name, you can customize this
     a.click();
   };
 
@@ -76,7 +71,7 @@ const ImageGallery = () => {
                 <div className="dots-menu">
                   <span className="dots-icon">&#8942;</span>
                   <div className="dots-dropdown">
-                    <button onClick={() => handleDownload(media.url, media.name)}>Download</button>
+                    <button onClick={() => handleDownload(media.url)}>Download</button>
                   </div>
                 </div>
               </>

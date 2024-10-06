@@ -1,119 +1,64 @@
 import React, { useState } from 'react';
-import { storage } from '../firebaseConfig'; // Import your Firebase storage configuration
+import { storage } from '../firebaseConfig';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import './Upload.css';
 
-const UploadMemory = () => {
+const UploadImage = () => {
   const [files, setFiles] = useState([]);
-  const [mediaUrl, setMediaUrl] = useState(null); // For storing the clicked media's URL
-  const [isVideo, setIsVideo] = useState(false);  // To check if it's video
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [progress, setProgress] = useState([]);
 
-  const handleFileChange = (e) => {
-    setFiles(e.target.files);
+  const handleChange = (e) => {
+    if (e.target.files) {
+      // Save the selected files in state
+      setFiles([...e.target.files]);
+    }
   };
 
   const handleUpload = () => {
-    Array.from(files).forEach((file) => {
-      const storageRef = ref(storage, `memories/${file.name}`);
+    if (files.length === 0) return;
+
+    const newProgress = Array(files.length).fill(0);
+    setProgress(newProgress);
+
+    files.forEach((file, index) => {
+      // Generate a unique file name with a timestamp to maintain the order
+      const timestamp = Date.now();
+      const storageRef = ref(storage, `images/${timestamp}_${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
         'state_changed',
         (snapshot) => {
-          // Progress monitoring code if needed
+          const prog = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          const updatedProgress = [...progress];
+          updatedProgress[index] = prog;
+          setProgress(updatedProgress);
         },
         (error) => {
-          console.error('Upload failed:', error);
+          console.error('Upload error:', error);
         },
         () => {
-          // Upload complete, get the download URL
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            console.log('File available at', downloadURL);
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            console.log(`File ${file.name} uploaded! URL: ${url}`);
           });
         }
       );
     });
   };
 
-  // Function to open modal with the correct media type
-  const openModal = (url, isVideo) => {
-    setMediaUrl(url);
-    setIsVideo(isVideo);
-    setIsModalOpen(true);
-  };
-
-  // Function to close the modal
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setMediaUrl(null);
-  };
-
   return (
-    <div className="upload-container">
-      <h2>Share Memories</h2>
-
-      {/* File Input */}
-      <label htmlFor="file-upload" className="file-upload-label">
-        Share memories
-      </label>
-      <input
-        type="file"
-        id="file-upload"
-        multiple
-        onChange={handleFileChange}
-        className="file-upload-input"
-      />
-
-      {/* Upload Button */}
-      <button onClick={handleUpload} className="upload-button">
-        Share
-      </button>
-
-      {/* Uploaded media preview (photos/videos) */}
-      <div className="media-gallery">
-        {files &&
-          Array.from(files).map((file, index) => {
-            const fileURL = URL.createObjectURL(file);
-            const isVideoFile = file.type.startsWith('video');
-
-            return isVideoFile ? (
-              <video
-                key={index}
-                src={fileURL}
-                onClick={() => openModal(fileURL, true)} // Open modal for video
-                className="media-item"
-                controls
-              />
-            ) : (
-              <img
-                key={index}
-                src={fileURL}
-                onClick={() => openModal(fileURL, false)} // Open modal for image
-                alt="memory"
-                className="media-item"
-              />
-            );
-          })}
-      </div>
-
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close-btn" onClick={closeModal}>
-              &times;
-            </span>
-            {isVideo ? (
-              <video src={mediaUrl} className="modal-media" controls autoPlay />
-            ) : (
-              <img src={mediaUrl} alt="memory" className="modal-media" />
-            )}
-          </div>
+    <div>
+      <h2>Upload Multiple Files (Images and Videos)</h2>
+      <input type="file" multiple onChange={handleChange} />
+      <button onClick={handleUpload}>Upload All</button>
+      <br />
+      {progress.map((prog, index) => (
+        <div key={index}>
+          <p>{`File ${index + 1} progress: ${prog}%`}</p>
+          <progress value={prog} max="100" />
         </div>
-      )}
+      ))}
     </div>
   );
 };
 
-export default UploadMemory;
+export default UploadImage;
