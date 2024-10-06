@@ -1,0 +1,64 @@
+.upload-container {
+    background-color: #fff; /* White background for upload section */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px; /* Limit the width */
+    margin: 30px auto; /* Centering the container */
+  }
+  
+  .upload-title {
+    text-align: center;
+    color: #000000; /* Darker pink for title */
+    margin-bottom: 20px;
+    font-size: 24px; /* Title font size */
+  }
+  
+  .file-input {
+    display: block;
+    margin-left: 10px;
+    margin: 20px auto;
+    padding: 1px;
+    border: 2px dashed #000000; /* Dashed border for file input */
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px; /* Increase font size */
+    color: #555; /* Text color */
+  }
+  
+  .file-input:hover {
+    border-color: #ff69b4; /* Change border color on hover */
+  }
+  
+  .upload-button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #0005a2; /* Button background color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px; /* Increase font size */
+  }
+  
+  .upload-button:hover {
+    background-color: #934685; /* Lighter pink on hover */
+  }
+  
+  .progress-container {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    max-width: 300px; /* Limit the width of progress bar */
+    display: block;
+    margin: 10px auto;
+    appearance: none; /* Remove default styles */
+    height: 10px; /* Height of the progress bar */
+    border-radius: 5px; /* Round corners */
+    background-color: #f0f0f0; /* Background color */
+  }
+  

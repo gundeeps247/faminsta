@@ -1,0 +1,141 @@
+/* Gallery grid */
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Gallery item */
+.gallery-item {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Download button */
+.download-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+/* Three-dot menu */
+.three-dot-menu {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.three-dot-menu:hover .menu-options {
+  display: block;
+}
+
+/* Dropdown menu for options */
+.menu-options {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 100;
+}
+
+.menu-options button {
+  background: none;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.menu-options button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Gallery grid responsive layout */
+@media (max-width: 1024px) {
+  /* Adjust grid and item size for tablets */
+  .gallery-item {
+      width: 180px;
+      height: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* For smaller tablets and phones */
+  .gallery-item {
+      width: 150px;
+      height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* For mobile phones */
+  .gallery-item {
+      width: 100%;
+      height: auto;
+  }
+}
+
+/* Dots menu positioning */
+.dots-menu {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+/* Dots icon styling */
+.dots-icon {
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  padding: 5px;
+}
+
+/* Dropdown hidden by default */
+.dots-dropdown {
+  display: none;
+  position: absolute;
+  bottom: 30px;
+  right: 0;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Show dropdown on hover */
+.dots-menu:hover .dots-dropdown {
+  display: block;
+}
+
+/* Button styles in dropdown */
+.dots-dropdown button {
+  background: none;
+  border: none;
+  color: black;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.dots-dropdown button:hover {
+  color: #007bff;
+}

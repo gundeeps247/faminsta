@@ -1,0 +1,112 @@
+/* Fullscreen modal backdrop */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modal content container */
+.modal-content {
+  position: relative;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 80%;
+  max-height: 80%;
+  overflow: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Video container for larger screens (laptops, iPads) */
+.video-container {
+  width: 500px;
+  height: 700px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Video styles */
+.modal-video {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Maintain aspect ratio */
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 1024px) {
+  /* For tablets or smaller screens like iPads */
+  .video-container {
+      width: 400px;
+      height: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* For smaller tablets and phones */
+  .video-container {
+      width: 300px;
+      height: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* For mobile phones */
+  .video-container {
+      width: 100%;
+      height: auto;
+      padding: 10px;
+  }
+}
+
+/* Image styles */
+.modal-image {
+  max-width: 100%;
+  max-height: 80vh; /* Limit height for images */
+}
+
+/* Close button */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: rgb(241, 241, 241);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Navigation buttons */
+.nav-button {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #007bff;
+}
+
+.prev-button {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.next-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.modal-controls {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}

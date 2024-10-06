@@ -1,39 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { storage } from '../firebaseConfig';
 import { ref, listAll, getDownloadURL } from 'firebase/storage';
-import ImageModal from './ImageModal';
+import MediaModal from './MediaModal';
+import './ImageGallery.css'; // Add new CSS for the three dots menu
 
 const ImageGallery = () => {
-  const [images, setImages] = useState([]);
+  const [mediaFiles, setMediaFiles] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   useEffect(() => {
-    const fetchImages = async () => {
+    const fetchMediaFiles = async () => {
       const storageRef = ref(storage, 'images/');
       const res = await listAll(storageRef);
       
-      // Fetch URLs with filenames
-      const imageUrls = await Promise.all(
+      const mediaUrls = await Promise.all(
         res.items.map(async (itemRef) => {
           const url = await getDownloadURL(itemRef);
           return { url, name: itemRef.name };
         })
       );
 
-      // Sort the images by timestamp extracted from the filename (timestamps are at the start)
-      const sortedImages = imageUrls.sort((a, b) => {
+      const sortedMedia = mediaUrls.sort((a, b) => {
         const timestampA = parseInt(a.name.split('_')[0], 10);
         const timestampB = parseInt(b.name.split('_')[0], 10);
-        return timestampB - timestampA; // Descending order (most recent first)
+        return timestampB - timestampA;
       });
 
-      setImages(sortedImages);
+      setMediaFiles(sortedMedia);
     };
 
-    fetchImages();
+    fetchMediaFiles();
   }, []);
 
-  const openImageModal = (index) => {
+  const openMediaModal = (index) => {
     setSelectedIndex(index);
   };
 
@@ -46,32 +45,50 @@ const ImageGallery = () => {
   };
 
   const showNext = () => {
-    if (selectedIndex < images.length - 1) setSelectedIndex(selectedIndex + 1);
+    if (selectedIndex < mediaFiles.length - 1) setSelectedIndex(selectedIndex + 1);
+  };
+
+  const handleDownload = (url) => {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'image.jpg'; // Default file name, you can customize this
+    a.click();
   };
 
   return (
     <div>
       <h2>Gallery</h2>
       <div className="gallery-grid">
-        {images.map((image, index) => (
-          <div
-            className="gallery-item"
-            key={index}
-            onClick={() => openImageModal(index)}
-          >
-            <img src={image.url} alt={`Uploaded ${index}`} />
+        {mediaFiles.map((media, index) => (
+          <div className="gallery-item" key={index}>
+            {media.name.endsWith('.mp4') || media.name.endsWith('.mov') ? (
+              <video src={media.url} controls width="100%" height="100%">
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <>
+                <img src={media.url} alt={`Uploaded ${index}`} onClick={() => openMediaModal(index)} />
+                <div className="dots-menu">
+                  <span className="dots-icon">&#8942;</span>
+                  <div className="dots-dropdown">
+                    <button onClick={() => handleDownload(media.url)}>Download</button>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         ))}
       </div>
 
       {selectedIndex !== null && (
-        <ImageModal
-          url={images[selectedIndex].url}
+        <MediaModal
+          url={mediaFiles[selectedIndex].url}
+          isVideo={mediaFiles[selectedIndex].name.endsWith('.mp4') || mediaFiles[selectedIndex].name.endsWith('.mov')}
           onClose={closeModal}
           onPrevious={showPrevious}
           onNext={showNext}
           showPrev={selectedIndex > 0}
-          showNext={selectedIndex < images.length - 1}
+          showNext={selectedIndex < mediaFiles.length - 1}
         />
       )}
     </div>
